@@ -1,112 +1,46 @@
-program AlgoritmoNubosidad;
+program algoritmoIN;
 
 uses
-  Classes, SysUtils, FPImage, FPReadJPEG, FPWriteJPEG, Math;
+  SysUtils, Classes, FPImage, FPReadPNG;
 
 var
-  img, imgBW: TFPMemoryImage;
-  readerJPEG: TFPReaderJPEG;
-  writerJPEG: TFPWriterJPEG;
-  i, j, cx, cy, radio: Integer;
-  cloudThreshold, ratio, CCI: Double;
-  pelcolor: TFPColor;
-  cloudPixels, totalPixels: Integer;
-  inputFileName, outputFileName: string;
-  isSegmentation: Boolean;
-
-function IsWithinCircle(x, y, cx, cy, radius: Integer): Boolean;
-begin
-  IsWithinCircle := Sqr(x - cx) + Sqr(y - cy) <= Sqr(radius);
-end;
+  Image: TFPMemoryImage;  // Aquí cargamos la imagen en memoria
+  Reader: TFPReaderPNG;   // Esto nos ayuda a leer archivos PNG
+  TotalPixels, CloudPixels: Integer;  // Contadores: total de píxeles y de píxeles nubosos
+  x, y: Integer;  // Coordenadas de los píxeles
+  PixelColor: TFPColor;  // Para guardar el color de cada píxel
+  IndiceCobertura: Real;  // El índice final de cobertura nubosa
 
 begin
-  if ParamCount < 1 then
-  begin
-    WriteLn('Error: falta el nombre del archivo de imagen como parámetro.');
-    Halt(1);
-  end;
+  // Cargar la imagen en memoria
+  Image := TFPMemoryImage.Create(0, 0);
+  Reader := TFPReaderPNG.Create;
 
-  inputFileName := ParamStr(1);
-  isSegmentation := (ParamCount > 1) and ((ParamStr(2) = 'S') or (ParamStr(2) = 's'));
-  cloudThreshold := 1.5; 
-  cx := 2184;            
-  cy := 1456;             
-  radio := 1324;           
+  // Leemos la imagen desde el archivo PNG
+  Image.LoadFromFile('output_transparente.png', Reader);
+  TotalPixels := Image.Width * Image.Height;  // Calculamos cuántos píxeles hay en total
+  CloudPixels := 0;  // Empezamos con cero nubes contadas
 
-  WriteLn('Inicio del programa de cálculo de nubosidad...');
-  WriteLn('Umbral de nube establecido en: ', cloudThreshold:0:2);
-
-  if not FileExists(inputFileName) then
-  begin
-    WriteLn('Error: el archivo de imagen no existe.');
-    Halt(1);
-  end;
-
-  WriteLn('Cargando la imagen...');
-  img := TFPMemoryImage.Create(0, 0);
-  imgBW := TFPMemoryImage.Create(0, 0);
-
-  readerJPEG := TFPReaderJPEG.Create;
-  writerJPEG := TFPWriterJPEG.Create;
-
-  img.LoadFromFile(inputFileName, readerJPEG);
-
-  imgBW.SetSize(img.Width, img.Height);
-
-  WriteLn('Imagen cargada correctamente.');
-
-  cloudPixels := 0;
-  totalPixels := 0;
-  WriteLn('Analizando los píxeles de la imagen...');
-
-  for i := Max(0, cx - radio) to Min(img.Width - 1, cx + radio) do
-  begin
-    for j := Max(0, cy - radio) to Min(img.Height - 1, cy + radio) do
+  // Recorremos cada píxel de la imagen
+  for y := 0 to Image.Height - 1 do
+    for x := 0 to Image.Width - 1 do
     begin
-      if IsWithinCircle(i, j, cx, cy, radio) then
+      PixelColor := Image.Colors[x, y];  // Obtenemos el color del píxel actual
+
+      // Chequeamos si el píxel es "claro", o sea, podría ser una nube
+      if (PixelColor.red > 20000) and (PixelColor.green > 20000) and (PixelColor.blue > 20000) then
       begin
-        pelcolor := img.Colors[i, j];
-        ratio := pelcolor.Red / (pelcolor.Blue + 1);  
-        
-        if ratio > cloudThreshold then
-        begin
-          Inc(cloudPixels);
-          imgBW.Colors[i, j] := colWhite;
-        end
-        else
-          imgBW.Colors[i, j] := colBlack;
-
-        Inc(totalPixels);
-      end
+        // Contamos el píxel como "nuboso"
+        CloudPixels := CloudPixels + 1;
+      end;
     end;
-  end;
 
-  WriteLn('Análisis completado.');
+  // Calculamos el índice de cobertura de nubes
+  IndiceCobertura := CloudPixels / TotalPixels;
+  WriteLn('Índice de cobertura nubosa: ', IndiceCobertura:0:3);  
 
-  if totalPixels > 0 then
-  begin
-    CCI := cloudPixels / totalPixels;
-    WriteLn('Índice de cobertura nubosa (CCI): ', CCI:0:4);
-  end
-  else
-  begin
-    WriteLn('Error: no se encontraron píxeles en el círculo de la imagen.');
-  end;
-
-  if isSegmentation then
-  begin
-    outputFileName := ChangeFileExt(inputFileName, '-seg.jpg');
-    imgBW.SaveToFile(outputFileName, writerJPEG);
-    WriteLn('Imagen de segmentación guardada como: ', outputFileName);
-  end;
-
-  // Liberar recursos
-  img.Free;
-  imgBW.Free;
-  readerJPEG.Free;
-  writerJPEG.Free;
-
-  WriteLn('Fin del programa.');
+  // Limpiamos la memoria, importante para evitar problemas
+  Image.Free;
+  Reader.Free;
 end.
-
 
