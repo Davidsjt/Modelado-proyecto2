@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/usr/bin/fpc" Date="1722124800"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -O1 -gw3 -gl -l -vewnhibq -Fu/home/bervit/Documentos/modelado/Modelado-proyecto2/algoritmoIN/ -FU/home/bervit/Documentos/modelado/Modelado-proyecto2/algoritmoIN/lib/x86_64-linux/ -FE/home/bervit/Documentos/modelado/Modelado-proyecto2/algoritmoIN/ -o/home/bervit/Documentos/modelado/Modelado-proyecto2/algoritmoIN/algoritmo algoritmo.pas"/>
+  <Complete Value="False"/>
+</CONFIG>
