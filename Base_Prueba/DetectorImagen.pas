@@ -1,3 +1,5 @@
+{$mode objfpc} // Activa el modo OO
+
 program DetectorImagen;
 
 uses
