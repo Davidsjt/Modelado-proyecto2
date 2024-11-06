@@ -16,7 +16,7 @@ def calcular_indice_cobertura_nubosa(input_path, generar_imagen=False):
 
     brightness = circular_pixels[:, :3].mean(axis=1)
     saturation = np.ptp(circular_pixels[:, :3], axis=1)
-    is_cloud = (brightness > 50) & (saturation < 15) # ajustarrr
+    is_cloud = (brightness > 20) & (saturation < 15) # ajustarrr
 
     N = np.sum(is_cloud)  # pixeles nube
     C = circular_pixels.shape[0] 
