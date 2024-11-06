@@ -16,11 +16,11 @@ def calcular_indice_cobertura_nubosa(input_path, generar_imagen=False):
 
     brightness = circular_pixels[:, :3].mean(axis=1)
     saturation = np.ptp(circular_pixels[:, :3], axis=1)
-    is_cloud = (brightness > 50) & (saturation < 17) # ajustarrrr
+    is_cloud = (brightness > 50) & (saturation < 15) # ajustarrr
 
-    N = np.sum(is_cloud)  
-    C = circular_pixels.shape[0]  
-    cloud_coverage_index = (N / C * 100) if C > 0 else 0  # N/C
+    N = np.sum(is_cloud)  # pixeles nube
+    C = circular_pixels.shape[0] 
+    cloud_coverage_index = (N / C * 100) if C > 0 else 0  
 
     output_path = None
     if generar_imagen:
@@ -34,15 +34,17 @@ def calcular_indice_cobertura_nubosa(input_path, generar_imagen=False):
 
     return cloud_coverage_index, output_path
 
-# S para imagen 
-generar_imagen = len(sys.argv) > 1 and sys.argv[1].lower() == "s"
+if len(sys.argv) < 2:
+    print("Uso: python algoritmoIN.py <ruta_de_imagen> [S]")
+    sys.exit(1)
 
-# ruta de la imagen de entrada
-input_path = 'salida-limpio.png'
+input_path = sys.argv[1]
+generar_imagen = len(sys.argv) > 2 and sys.argv[2].lower() == "s"
 
 indice_cobertura, output_path = calcular_indice_cobertura_nubosa(input_path, generar_imagen)
-print(f"Porcentaje de Nubes: {indice_cobertura:.2f}%")
+print(f"Índice de cobertura nubosa: {indice_cobertura:.2f}%")
 
 if output_path:
     print(f"Imagen segmentada guardada en: {output_path}")
+
 
