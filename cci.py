@@ -5,7 +5,7 @@ import os
 def run_command(command):
     result = subprocess.run(command, shell=True)
     if result.returncode != 0:
-        print(f"Error running command: {' '.join(command)}")
+        print(f"Error al ejecutar el programa: {' '.join(command)}")
         sys.exit(1)
 
 def main():
