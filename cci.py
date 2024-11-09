@@ -10,7 +10,7 @@ def run_command(command):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: py script.py <image_file.jpg> [S]")
+        print("Uso: py cci.py <archivo_imagen.jpg> [S] o python3 cci.py <archivo_imagen.jpg> [s] ")
         sys.exit(1)
     input_file = sys.argv[1]
     segmentation_flag = sys.argv[2] if len(sys.argv) > 2 else None
