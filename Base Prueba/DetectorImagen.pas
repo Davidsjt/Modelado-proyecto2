@@ -75,12 +75,12 @@ begin
   WriteLn(scriptFile, 'from PIL import Image');
   WriteLn(scriptFile, 'def convertir_a_blanco_y_negro(ruta_imagen):');
   WriteLn(scriptFile, '    imagen = Image.open(ruta_imagen)');
-  WriteLn(scriptFile, '    imagen_byn = imagen.convert(''L'')');
-  WriteLn(scriptFile, '    imagen_byn.save(ruta_imagen.replace(''.jpg'', ''_byn.jpg''))');
-  WriteLn(scriptFile, '    return ruta_imagen.replace(''.jpg'', ''_byn.jpg'')');
+  WriteLn(scriptFile, '    imagen_byn = imagen.convert("L")');
+  WriteLn(scriptFile, '    imagen_byn.save(ruta_imagen.replace(".jpg", "_byn.jpg"))');
+  WriteLn(scriptFile, '    return ruta_imagen.replace(".jpg", "_byn.jpg")');
   WriteLn(scriptFile, 'if __name__ == "__main__":');
   WriteLn(scriptFile, '    ruta_base = os.path.dirname(os.path.abspath(__file__))');
-  WriteLn(scriptFile, '    ruta_imagen = os.path.join(ruta_base, ''copia_NUBEPRUEBA.jpg'')');
+  WriteLn(scriptFile, '    ruta_imagen = os.path.join(ruta_base, "copia_" + os.path.basename(ruta_imagen))');
   WriteLn(scriptFile, '    ruta_imagen_byn = convertir_a_blanco_y_negro(ruta_imagen)');
   WriteLn(scriptFile, '    print(f"Imagen convertida guardada como: {ruta_imagen_byn}")');
   CloseFile(scriptFile);
@@ -134,37 +134,42 @@ end;
  Procedimiento: ConvertirImagenConPython
  Descripción: Se almacena el script y convierte la imagen copia a blanco y negro.
 }
-procedure ConvertirImagenConPython;
+procedure ConvertirImagenConPython(nombreArchivo: string);
 var
-  rutaBase, rutaCompleta, rutaPythonScript: string;
+  rutaBase, rutaPythonScript: string;
 begin
   rutaBase := ObtenerRutaBase + 'IMG' + PathDelim;
-  rutaCompleta := rutaBase + 'copia_NUBEPRUEBA.jpg';
   rutaPythonScript := rutaBase + 'convertir_imagen.py';
 
-  if FileExists(rutaCompleta) then
+  if FileExists(rutaBase + 'copia_' + nombreArchivo) then
   begin
-    // Guarda Script en la misma carpeta.
+    // Guarda el script en la misma carpeta
     GuardarScriptPython(rutaPythonScript);
 
-    // Ejecuta Script
+    // Ejecuta el script
     EjecutarPythonScript(rutaPythonScript);
   end
   else
-    writeln('No se pudo encontrar la imagen para copiar.');
+    writeln('No se pudo encontrar la imagen para convertir a blanco y negro.');
 end;
 
 var
   nombre: string;
 
 begin
-  nombre := 'NUBEPRUEBA.jpg';  //
+  if ParamCount < 1 then
+  begin
+    writeln('Uso: DetectorImagen <nombre_archivo.jpg>');
+    exit;
+  end;
+
+  nombre := ParamStr(1);  // Get the image name from the command-line argument
 
   writeln('Haciendo una copia de la imagen...');
   CopiarImagen(nombre);
 
   writeln('Convirtiendo la imagen a blanco y negro...');
-  ConvertirImagenConPython;
+  ConvertirImagenConPython(nombre);
 
   Readln;
 end.
