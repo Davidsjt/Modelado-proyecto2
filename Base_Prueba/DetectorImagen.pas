@@ -1,5 +1,4 @@
-{$mode objfpc} // Activa el modo OO
-
+{$MODE DELPHI}
 program DetectorImagen;
 
 uses
@@ -19,12 +18,6 @@ begin
   ExisteImagen := FileExists(rutaCompleta);
 end;
 
-{
- Procedimiento: VisualizarExistencia.
- Descripción: Te hace ver si el archivo está en la carpeta IMG.
- Parámetros:
-   -nombreArchivo: El nombre del archivo a buscar.
-}
 procedure VisualizarExistencia(nombreArchivo: string);
 begin
   if ExisteImagen(nombreArchivo) then
@@ -33,13 +26,6 @@ begin
     writeln('La imagen ', nombreArchivo, ' no se encuentra en la carpeta IMG.');
 end;
 
-{
- Procedimiento: CopiarArchivo.
- Descripción: Copia el archivo indicado.
- Parámetros:
-   -archivoOrigen: El contenido archivo original.
-   -archivoDestino: El contenido que copia al archivo original.
-}
 procedure CopiarArchivo(archivoOrigen, archivoDestino: string);
 var
   fuente, destino: TFileStream;
@@ -58,13 +44,7 @@ begin
   end;
 end;
 
-{
- Procedimiento: GuardarScriptPython.
- Descripción: Guarda el script de python en la ruta especificada.
- Parámetros:
-   -rutaScript: La ruta en la que el archivo se guardará.
 
-}
 procedure GuardarScriptPython(rutaScript: string);
 var
   scriptFile: TextFile;
@@ -80,25 +60,19 @@ begin
   WriteLn(scriptFile, '    return ruta_imagen.replace(".jpg", "_byn.jpg")');
   WriteLn(scriptFile, 'if __name__ == "__main__":');
   WriteLn(scriptFile, '    ruta_base = os.path.dirname(os.path.abspath(__file__))');
-  WriteLn(scriptFile, '    ruta_imagen = os.path.join(ruta_base, "copia_" + os.path.basename(ruta_imagen))');
+  WriteLn(scriptFile, Format('    ruta_imagen = os.path.join(ruta_base, "%s")', ['copia_' + ParamStr(1)]));
   WriteLn(scriptFile, '    ruta_imagen_byn = convertir_a_blanco_y_negro(ruta_imagen)');
   WriteLn(scriptFile, '    print(f"Imagen convertida guardada como: {ruta_imagen_byn}")');
   CloseFile(scriptFile);
 end;
 
-{
- Procedimiento: EjecutarPythonScript.
- Descripción: Ejecuta el cript usando el comando py y espera a que el proceso termine.
- Parámetro:
-   -script: El script a ejecutar.
-}
 procedure EjecutarPythonScript(script: string);
 var
   proceso: TProcess;
 begin
   proceso := TProcess.Create(nil);
   try
-    proceso.Executable := 'py';  // Se usa 'py' para ejecutarlo en la terminal.
+    proceso.Executable := 'python';  //Modificar esta línea dependiendo de como se ejecute en tu sistema operativo los elementos python.
     proceso.Parameters.Add(script);
     proceso.Options := [poWaitOnExit];
     proceso.Execute;
@@ -107,12 +81,6 @@ begin
   end;
 end;
 
-{
- Procedimiento: CopiarImagen.
- Descripción: Verifica si la imagen original existe. Si existe lo copia.
- Parámetros:
-   -nombreArchivo: El nombre del archivo a copiar.
-}
 procedure CopiarImagen(nombreArchivo: string);
 var
   rutaBase, rutaCompleta, rutaCopia: string;
@@ -130,10 +98,6 @@ begin
     writeln('No se pudo copiar la imagen ', nombreArchivo, ' porque no se encontró.');
 end;
 
-{
- Procedimiento: ConvertirImagenConPython
- Descripción: Se almacena el script y convierte la imagen copia a blanco y negro.
-}
 procedure ConvertirImagenConPython(nombreArchivo: string);
 var
   rutaBase, rutaPythonScript: string;
@@ -143,10 +107,7 @@ begin
 
   if FileExists(rutaBase + 'copia_' + nombreArchivo) then
   begin
-    // Guarda el script en la misma carpeta
     GuardarScriptPython(rutaPythonScript);
-
-    // Ejecuta el script
     EjecutarPythonScript(rutaPythonScript);
   end
   else
@@ -163,15 +124,11 @@ begin
     exit;
   end;
 
-  nombre := ParamStr(1);  // Get the image name from the command-line argument
+  nombre := ParamStr(1);  // Obtiene el nombre del archivo de la línea de comandos
 
   writeln('Haciendo una copia de la imagen...');
   CopiarImagen(nombre);
 
   writeln('Convirtiendo la imagen a blanco y negro...');
   ConvertirImagenConPython(nombre);
-
-  Readln;
 end.
-
-

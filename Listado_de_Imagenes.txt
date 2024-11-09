@@ -1,0 +1,5 @@
+En este archivo se enlistarán las imagenes que puede usar en el programa.
+Nota, las imagenes tienen que estar en la carpeta IMG. (Base_Prueba\IMG).
+Agregar o eliminar sea el caso:
+
+ - 11838.jpg

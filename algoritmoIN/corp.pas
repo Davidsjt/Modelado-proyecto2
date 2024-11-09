@@ -3,6 +3,11 @@ program CropCircleImage;
 uses
   SysUtils, Classes, FPImage, FPReadJPEG, FPWritePNG;
 
+{
+ Este programa recorta un circulo de una ímagen JPEG y almacena el resultado.
+ La imahen de salida tendrá transparencia fuera del circulo.
+}
+
 const
   OUTPUT_FILENAME = 'output_clean.png'; // Nombre del archivo donde se guardará la imagen recortada
   IMAGE_WIDTH = 4368; // Ancho de la imagen original
@@ -12,7 +17,13 @@ const
   CIRCLE_RADIUS = 1324; // Radio del círculo que queremos extraer
   CIRCLE_DIAMETER = CIRCLE_RADIUS * 2; // El diámetro del círculo, o sea, ancho y alto de la imagen de salida
 
-// Procedimiento para recortar el círculo y guardarlo en PNG
+{
+ Procedimiento: CropCircleToPNG
+ Descripción: Recorta un circulo de una ímagen JPEG y almacena el resultado en formato PNG.
+ Parámetros:
+            -inputFileName (const: String): Nombre del archivo de entrada JPEG.
+            -outoutFileName (const: String): Nombre del archivo de salida PNG
+}
 procedure CropCircleToPNG(const inputFileName, outputFileName: string);
 var
   jpegImage: TFPMemoryImage; // Imagen original en JPEG
@@ -29,7 +40,7 @@ begin
   pngImage := TFPMemoryImage.Create(CIRCLE_DIAMETER, CIRCLE_DIAMETER); // La imagen de salida será del tamaño del círculo
   writer := TFPWriterPNG.Create;
 
-  // Cargar la imagen JPEG que vamos a recortar
+  // Cargar la imagen JPEG que se va a recortar
   jpegImage.LoadFromFile(inputFileName, reader);
 
   // Configurar la imagen PNG para que pueda tener transparencia
