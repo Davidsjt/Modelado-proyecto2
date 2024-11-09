@@ -7,7 +7,7 @@
 * Rivera Soto Aline Daniela -320333035
 
 ## Descripción
-Esta es un programa desarrollado con PASCAL que permite a los usuarios conocer el porcentaje de indice nuboso en la imagen dada y si lo requiere obtener la imagen con filtrada en blanco y negro.
+Esta es un programa desarrollado con PASCAL y Python que permite a los usuarios conocer el porcentaje de indice nuboso en la imagen dada y si lo requiere obtener la imagen con filtrada en blanco y negro.
 
 ## Estructura 
 El proyecto se organiza en los siguientes archivos:
