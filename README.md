@@ -59,7 +59,7 @@ Para ejecutar la aplicación, se debe tener  PASCAL y Python instalado. Luego, s
 
 O bien:
 
-Usando Pascal:
+Usando Pascal (tienes que estar en la carpeta Pascal):
 
 Para windows: 
 - `fpc recortar.pas && recortar.exe 11838.jpg && fpc algoritmoIN.pas && algoritmoIN.exe salida-limpio.bmp S`
@@ -67,7 +67,7 @@ Para windows:
 Para Linux:
 - `fpc recortar.pas && ./recortar 11838.jpg && fpc algoritmoIN.pas && ./algoritmoIN salida-limpio.bmp S`
 
-Usando Python: 
+Usando Python (tienes que estar en la carpeta Python): 
 - `python recortar.py 11838.jpg && python algoritmoIN.py salida-limpio.png s`
 
 
