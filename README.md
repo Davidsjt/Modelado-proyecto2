@@ -52,6 +52,16 @@ Para ejecutar la aplicación, se debe tener  PASCAL y Python instalado. Luego, s
 
 2. -- Sigue las instrucciones de el archivo Readme.txt
 
+O bien:
+
+Usando Pascal:
+Para windows: fpc corp.pas && corp.exe 11838.jpg && fpc algoritmoIN.pas && algoritmoIN.exe salida-limpio.bmp S
+Para Linux: fpc corp.pas && ./corp 11838.jpg && fpc algoritmoIN.pas && ./algoritmoIN salida-limpio.bmp S
+
+Usando Python: 
+python corp.py 11838.jpg && python algoritmoIN.py salida-limpio.png s
+
+
 ## Funcionalidades Principales
 La aplicación en terminal ofrece las siguientes funcionalidades:
 
