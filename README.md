@@ -11,8 +11,10 @@ Esta es un programa desarrollado con PASCAL y Python que permite a los usuarios 
 
 ## Explicación 
 Originalmente el proyecto fué pensado en Pascal, sin embargo, nos topamos con muchas dificultades al usar las bibliotecas de Pascal. Muchas solo eran disponibles con el IDE Lazarus, nunca lo pudimos hacer funcionar en Linux, y en Windows funcionaba parcialmente. 
-Logramos hacer una versión en Pascal que funciona bien (el índice lo calcula en 47.57%, cuando el que nos dio Ximena de ejemplo en 44.51%), pero la imagen la segmentada lo genera de una manera ineficiente. Para lograr el índice tuvimso que transformar la imagen en .bmp un tipo de archivo muy pesado, de otra manera no hacia ni generaba la imagen correctamente. 
-Por eso también hicimos una versión en Python que lo hace de una mejor manera en todos los aspectos, tanto en ejeccución, legibilidad del código y eficiencia del mismo. Logra calcular el índice de una manera más precisa y la imagen segmentada está más cerca d e los requerimientos del proyecto.
+
+Logramos hacer una versión en Pascal que funciona bien (el índice lo calcula en 47.57%, cuando el que nos dio Ximena de ejemplo en 44.51%), pero la imagen la segmentada lo genera de una manera ineficiente. Para lograr el índice tuvimos que transformar la imagen en .bmp un tipo de archivo muy pesado, de otra manera no generaba la imagen correctamente. 
+
+Por eso también hicimos una versión en Python que lo hace de una mejor manera en todos los aspectos, tanto en ejeccución, legibilidad del código y eficiencia del mismo. Logra calcular el índice de una manera más precisa y la imagen segmentada está más cerca de los requerimientos del proyecto.
 
 ## Estructura 
 El proyecto se organiza en los siguientes archivos:
