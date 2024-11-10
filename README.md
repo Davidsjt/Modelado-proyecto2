@@ -16,7 +16,8 @@ Logramos hacer una versión en Pascal que funciona bien (el índice lo calcula e
 
 Por eso también hicimos una versión en Python que lo hace de una mejor manera en todos los aspectos, tanto en ejeccución, legibilidad del código y eficiencia del mismo. Logra calcular el índice de una manera más precisa y la imagen segmentada está más cerca de los requerimientos del proyecto.
 
-## Estructura 
+## Estructura
+
 El proyecto se organiza en los siguientes archivos:
 
 ### -- Readme.md
@@ -24,17 +25,15 @@ El proyecto se organiza en los siguientes archivos:
 ### -- Readme.txt
 
 ### -- Python
+- `algoritmoIN.py`
+- `recortar.py`
+- `11838.jpg`
 
 ### -- Pascal
-
-La carpeta Python contiene:
-   - algoritmoIN.py
-   - recortar.py
-   - 11838.jpg
-La carpeta Pascal contiene:
-   - algoritmoIN.pas
-   - recortar.pas
-   - 11838.jpg
+- `algoritmoIN.pas`
+- `recortar.pas`
+- `11838.jpg`
+  
 ### test
 Podemos encontrar pruebas unitarias del código que se encarga de procesar la imagen y de calcular el indice nuboso.
 
