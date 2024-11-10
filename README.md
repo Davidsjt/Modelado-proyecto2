@@ -33,7 +33,14 @@ El proyecto se organiza en los siguientes archivos:
 - `algoritmoIN.pas`
 - `recortar.pas`
 - `11838.jpg`
-  
+
+### -- cci.py
+
+### -- Listado Imagenes.txt
+
+### -- Presentación.pdf
+
+### -- Manual.pdf
 
 ## Requisitos
 
