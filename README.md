@@ -19,11 +19,22 @@ Por eso también hicimos una versión en Python que lo hace de una mejor manera 
 ## Estructura 
 El proyecto se organiza en los siguientes archivos:
 
-### --
+### -- Readme.md
 
-### --
+### -- Readme.txt
 
-### --
+### -- Python
+
+### -- Pascal
+
+La carpeta Python contiene:
+   - algoritmoIN.py
+   - recortar.py
+   - 11838.jpg
+La carpeta Pascal contiene:
+   - algoritmoIN.pas
+   - recortar.pas
+   - 11838.jpg
 ### test
 Podemos encontrar pruebas unitarias del código que se encarga de procesar la imagen y de calcular el indice nuboso.
 
