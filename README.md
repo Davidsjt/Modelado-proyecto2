@@ -29,10 +29,7 @@ Podemos encontrar pruebas unitarias del código que se encarga de procesar la im
 
 ## Requisitos
 
-Asegúrate de tener los siguientes requisitos en tu sistema:
-
-- PASCAL
-- La imagen a procesar
+Leer Readme.txt para más información.
 
 ## Uso
 Para ejecutar la aplicación, se debe tener  PASCAL y Python instalado. Luego, sigue estos pasos:
@@ -43,7 +40,7 @@ Para ejecutar la aplicación, se debe tener  PASCAL y Python instalado. Luego, s
    $ git clone https://github.com/Davidsjt/Modelado-proyecto2.git
 ```
 
-2. --
+2. -- Sigue las instrucciones de el archivo Readme.txt
 
 ## Funcionalidades Principales
 La aplicación en terminal ofrece las siguientes funcionalidades:
