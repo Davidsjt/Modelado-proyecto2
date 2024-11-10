@@ -2,6 +2,9 @@ program RecortarImagenCircular;
 
 uses
   SysUtils, Classes, FPImage, FPReadJPEG, FPWriteBMP;
+{
+ Programa que colorea los pixeles fuera del circulo del color amarillo.
+}
 
 const
   NOMBRE_ARCHIVO_SALIDA = 'salida-limpio.bmp'; // Nombre del archivo de salida en formato BMP
@@ -12,7 +15,13 @@ const
   RADIO_CIRCULO = 1324; // Radio del círculo que queremos recortar
   DIAMETRO_CIRCULO = RADIO_CIRCULO * 2; // Diámetro del círculo para el tamaño de la imagen recortada
 
-// Procedimiento para recortar la imagen en un círculo y guardarla en formato BMP
+{
+ Procedimiento: RecortarCirculoBMP.
+ Descripción: Recorta una imagen en un circulo y la guarda en formato BMP.
+ Parámetros:
+            -nombreArchivoEntrada (String): Nombre del archivo JPEG de entrada.
+            -nombreArchivoSalida (String): Nombre del archivo BMP de salida.
+}
 procedure RecortarCirculoBMP(const nombreArchivoEntrada, nombreArchivoSalida: string);
 var
   imagenJPEG: TFPMemoryImage; // Imagen JPEG original
@@ -88,7 +97,3 @@ begin
   // Llamar al procedimiento para recortar la imagen circular
   RecortarCirculoBMP(ParamStr(1), NOMBRE_ARCHIVO_SALIDA);
 end.
-
-
-
-

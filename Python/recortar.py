@@ -2,6 +2,14 @@ from PIL import Image, ImageDraw
 import sys
 
 def circulo_a_transparente(ruta_entrada):
+    '''
+    Convierte la parte exterior de un circulo en una imágen transparente.
+
+    Argumentos: 
+        ruta_entrada (String): La ruta del archivo de imagen que se va a procesar.
+    Return:
+        None
+    '''
     # Abrir la imagen usando la ruta de entrada y convertirla a modo RGBA (para agregar transparencia)
     imagen = Image.open(ruta_entrada).convert("RGBA")
 
@@ -33,5 +41,3 @@ else:
     # Obtener la ruta del archivo de entrada desde los argumentos de la línea de comandos
     ruta_entrada = sys.argv[1]
     circulo_a_transparente(ruta_entrada)
-
-

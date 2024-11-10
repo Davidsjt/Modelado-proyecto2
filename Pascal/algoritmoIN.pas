@@ -1,6 +1,10 @@
 program ContarPixelesNubes;
 
-uses SysUtils;
+uses
+  SysUtils;
+{
+  Programa enfocado al conteo de pixeles nubosos en una imagen BMP.
+}
 
 type
   TRGBPixel = record
@@ -8,26 +12,46 @@ type
   end;
 
 var
-  BMPFile, OutFile: File;
-  Pixel, OutputPixel: TRGBPixel;
-  TotalPixeles, PixelesNubes: Int64; 
-  Width, Height, x, y: Integer;
-  DataOffset: LongInt;
-  Header: array[1..54] of Byte; 
-  Filename, OutFilename: String;
-  Flag: Char;
-  GenerarSegmentacion: Boolean;
+  BMPFile, OutFile: File; //Archivos de entrada y salida BMP.
+  Pixel, OutputPixel: TRGBPixel;  //Pixeles de entrada y salida.
+  TotalPixeles, PixelesNubes: Int64; //Contadores de pixeles totales y de nubes.
+  Width, Height, x, y: Integer; //Dimensiones y coordenadas de la imagen.   
+  DataOffset: LongInt;  //Offset donde comeinzan los datos de la imagen.
+  Header: array[1..54] of Byte; // Encabezado del archivo BMP.
+  Filename, OutFilename: String; // Nombres de los archivos de entrada y salida.
+  Flag: Char; // Bandera de opciones.
+  GenerarSegmentacion: Boolean; // Indica si se debe generar la imagen segmentada.
 
+{
+  Función: EsAmarillo.
+  Descripción: Verificia si un pixel es de color amarillo.
+  Parámetros:
+         - Color (TRGBPixel): El color del píxel a verificar.
+  Return:
+         - Boolean: Verdadero si el pixel es amarillo, falso en caso contrario.
+}
 function EsAmarillo(Color: TRGBPixel): Boolean;
 begin
   EsAmarillo := (Color.R > 200) and (Color.G > 200) and (Color.B < 100);
 end;
 
+{
+ Función: EsBlanco.
+ Descripción: Verifica si un pixel es de color blanco.
+ Parámetros:
+            -Color (TRGBPixel): El color de píxel a verificar.
+ Retorno:
+            -Boolean: Verdadero si el píxel es blanco, falso en caso contrario.
+}
 function EsBlanco(Color: TRGBPixel): Boolean;
 begin
   EsBlanco := (Color.R > 200) and (Color.G > 200) and (Color.B > 200);
 end;
 
+{
+ Procedimiento: CargarDimensiones.
+ Descripción: Carga las dimensiones de la imagen BMP.
+}
 procedure CargarDimensiones;
 var
   bfType: Word;
@@ -49,6 +73,10 @@ begin
   BlockRead(BMPFile, Height, 4);
 end;
 
+{
+ Procedimiento: ProcesarImagen.
+ Descripción: Procesa la imagen BMP, contando los pixeles nubosos y genera la imagen segmentada si es necesario.
+}
 procedure ProcesarImagen;
 begin
   Seek(BMPFile, DataOffset);
@@ -97,6 +125,7 @@ begin
 end;
 
 begin
+  //Se verifica si se ha proporcionado el nombre del archivo BMP.
   if ParamCount < 1 then
   begin
     Writeln('Uso: ContarPixelesNubes <archivo.bmp> [bandera]');
@@ -144,9 +173,7 @@ begin
     Close(OutFile);
 
   if TotalPixeles > 0 then
-    Writeln('Porcentaje de nubes: ', (PixelesNubes / TotalPixeles) * 100:0:2, '%')
+  Writeln(#27'[32mPorcentaje de nubes: ', (PixelesNubes / TotalPixeles) * 100:0:2, '%', #27'[0m')
   else
     Writeln('No hay píxeles para analizar.');
 end.
-
-

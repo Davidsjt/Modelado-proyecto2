@@ -1,10 +1,10 @@
 # Cloud Coverage
 
 ## Integrantes del Equipo
-* Flores Arriola Rafael Edson - 423118018
-* González Alan - 
-* Ortega Medina David - 319111866
-* Rivera Soto Aline Daniela -320333035
+* Flores Arriola Rafael Edson - 423118018.
+* González Lucero Alan Uriel - 320148204.
+* Ortega Medina David - 319111866.
+* Rivera Soto Aline Daniela -320333035.
 
 ## Descripción
 Esta es un programa desarrollado con PASCAL y Python que permite a los usuarios conocer el porcentaje de indice nuboso en la imagen dada y si lo requiere obtener la imagen con filtrada en blanco y negro.
